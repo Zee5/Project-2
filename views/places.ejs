@@ -1,11 +1,11 @@
-<h1>This is Skydive location page. c</h1>
-<% places.forEach(function(place){ %>
 
-<div>
-    <h4> <%= place.name %> </h4>
-    <img src="<%= place.image %>" >
+<% include partials/header %>
+    <h1>This is Skydive location page. </h1>
+    <% places.forEach(function(place){ %>
 
-
-<%=  %>
-</div>     
-<% }) %>
+    <div>
+        <h4> <%= place.name %> </h4>
+        <img src="<%= place.image %>" >
+    </div>     
+    <% }) %>
+<% include partials/footer %>
