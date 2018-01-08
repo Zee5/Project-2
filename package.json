@@ -1,0 +1,28 @@
+{
+  "name": "project-2",
+  "version": "1.0.0",
+  "description": "Skydiving experinace sharing site",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zola4/Project-2.git"
+  },
+  "keywords": [
+    "skydiving",
+    "skydivingdc",
+    "skydivingusa"
+  ],
+  "author": "Zola Tolera",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zola4/Project-2/issues"
+  },
+  "homepage": "https://github.com/zola4/Project-2#readme",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.2"
+  }
+}
