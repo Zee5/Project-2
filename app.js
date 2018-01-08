@@ -16,7 +16,9 @@ app.get("/places", (req, res) => {
     {name: "Skydive Dubai", image:"https://media-cdn.tripadvisor.com/media/photo-s/09/36/ae/54/skydive-dubai-palm-drop.jpg"},
     {name: "Fox Glacier", image:"http://flyingthenest.tv/wp-content/uploads/2015/04/SetWidth978-Bigfoot-over-the-glacier.jpg"},
     {name: "Outerspace", image:"http://flyingthenest.tv/wp-content/uploads/2015/04/001372acd0b511df6c5b01.jpg"},
-    {name: "Denarau Island", image:"http://flyingthenest.tv/wp-content/uploads/2015/04/img0226-1024x683.jpg", width:"500", height:"500" }
+    {name: "Denarau Island", image:"https://images.unsplash.com/photo-1418846531910-2b7bb1043512?auto=format&fit=crop&w=1050&q=80"},
+    {name: "Zola", image:"https://images.unsplash.com/photo-1418846531910-2b7bb1043512?auto=format&fit=crop&w=1050&q=40"}
+   
    ]
    res.render("places", {places:places})
 })
