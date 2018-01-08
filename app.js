@@ -10,6 +10,8 @@ res.render("landing")
 })
 
 
+
+
 app.get("/places", (req, res) => {
    
     })
