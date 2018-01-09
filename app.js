@@ -1,50 +1,87 @@
+//dependencies
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 
-
+//tell the app to use the following packages
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.set('port', process.env.PORT || 3003);
+var places = [
+{
+    name: "Interlaken, Switzerland",
+    image: "http://flyingthenest.tv/wp-content/uploads/2015/04/7614434674_8c071d116c_b.jpg"
+},
+{
+    name: "Skydive Santabarbara",
+    image: "https://img.grouponcdn.com/deal/a4egjBojuhLfXC7VGJfw/cR-2048x1228/v1/c700x420.jpg"
+},
+{
+    name: "Skydive Santabarbara",
+    image: "https://www.bookmestatic.net.nz/images/activities/2541_image1_skydive-deals-byron-bay.jpg"
+},
+
+{
+    name: "Skydive Santabarbara",
+    image: "http://www.skydivefingerlakes.com/images/site/Skydiving-New-York-tandem.jpg"
+},
+{
+    name: "Skydive Santabarbara",
+    image: "http://flyingthenest.tv/wp-content/uploads/2015/04/SetWidth978-Bigfoot-over-the-glacier.jpg"
+},
+{
+    name: "Outerspace",
+    image: "http://www.skydivehawaii.com/Portals/0/WebSitesCreative_Banner/619/c13523d8-7137-4e0f-bec1-605bde33d03a.jpg"
+},
+
+{
+    name: "Mount Everest, Nepal",
+    image: "http://flyingthenest.tv/wp-content/uploads/2015/04/skydive.jpeg"
+},
+{
+    name: "Outerspace",
+    image: "http://flyingthenest.tv/wp-content/uploads/2015/04/001372acd0b511df6c5b01.jpg"
+},
+{
+    name: "Outerspace",
+    image: "https://picsum.photos/300/160"
+},
+
+{
+    name: "Skydive Santabarbara",
+    image: "https://picsum.photos/300/161"
+},
+{
+    name: "Outerspace",
+    image: "https://picsum.photos/300/160"
+}
+
+
+]
+
 // Landing page
 app.get("/", (req, res) => {
     res.render("landing")
 })
 //
 app.get("/places", (req, res) => {
-    var places = [{
-            name: "Skydive Santabarbara",
-            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-J-Ht-eDEF15qPOqL7ThiLfPJNI7tXLJPHY_D3cppGa4RcsgpSw"
-        },
-        {
-            name: "Outerspace",
-            image: "http://flyingthenest.tv/wp-content/uploads/2015/04/001372acd0b511df6c5b01.jpg"
-        },
-        {
-            name: "Skydive Dubai",
-            image: "https://media-cdn.tripadvisor.com/media/photo-s/09/36/ae/54/skydive-dubai-palm-drop.jpg"
-            
-        },
-        {
-            name: "Fox Glacier",
-            image: "http://flyingthenest.tv/wp-content/uploads/2015/04/SetWidth978-Bigfoot-over-the-glacier.jpg"
-        },
-        {
-            name: "Denarau Island",
-            image: "https://images.unsplash.com/photo-1418846531910-2b7bb1043512?auto=format&fit=crop&w=1050&q=80"
-        },
-       
-    ]
+  
     res.render("places", {
         places: places
     })
 });
 
 app.post("/places", (req, res ) => {
-    res.send(" You just hit the post route.")
-//get data from form and add to places array
-
-//redirect back to places page
+    //get data from form and add to places array
+    var name  =  req.body.name;
+    var image = req.body.image;
+    var newPlaces = {name: name, image:image};
+    //add new skydiving place object at the begnig of the array 
+    places.unshift(newPlaces);
+     //add new skydiving place object at the end of the array 
+     //places.push(newPlaces);
+    //redirect back to places page
+    res.redirect("/places");
 
 });
 // Show the form that will send the data to /places post route
