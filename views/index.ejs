@@ -1,0 +1,30 @@
+
+<% include partials/header %>
+<div class="container">
+<header class="jumbotron">   
+    <div class="container">
+            <h1> Welcome to Skydive Sharing  Experiance Website </h1>
+            <p>View world's best skydiving locations and share your experiance. </p>
+        <p>
+            <a class="btn btn-primary btn-lg" href="/places/new">Add New Skydiving Location </a>
+        </p>
+    </div> 
+</header>
+    <div class="row text-center" style="display:flex; flex-wrap: wrap">
+        <% places.forEach(function(place){ %>
+        <div class="col-md-3 col-sm-6">
+            <div class="thumbnail"> 
+                    <img src="<%= place.image %>">
+                    <div class="caption">
+                            <h4><%= place.name %></h4>
+                    </div>
+                    <p>  
+                        <a href="/places/<%= place._id %>" class="btn btn-primary">See Detail</a>
+                   </p>          
+                </div>  
+        </div>     
+        <% }); %>
+    </div>   
+
+</div>
+<% include partials/footer %>
