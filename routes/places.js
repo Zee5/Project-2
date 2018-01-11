@@ -95,8 +95,6 @@ router.delete("/:id", function(req, res){
 
 });
 
-
-
  //middleware set up 
  function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
