@@ -5,13 +5,14 @@ const bodyParser    = require("body-parser");
 const mongoose      = require("mongoose"); 
 const Place         = require("./models/place");
 const seedDB        = require("./seeds");
-seedDB();
+
 //connection setup
 mongoose.connect("mongodb://localhost/skydive_db");
 //tell the app to use the following packages
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('port', process.env.PORT || 3003);
 app.set("view engine", "ejs");
+seedDB();
 
 // Landing page
 app.get("/", (req, res) => {
@@ -24,7 +25,7 @@ app.get("/places", (req, res) => {
         if(err){
             console.log(err);
         }else{
-            res.render("index", {places: allPlaces})
+            res.render("index", {places:allPlaces})
         }
     })
     
@@ -35,7 +36,7 @@ app.post("/places", (req, res ) => {
     var name  =  req.body.name;
     var image = req.body.image;
     var desc = req.body.description;
-    var newPlace = {name: name, image:image, description: desc};
+    var newPlace = {name: name, image: image, description: desc};
     // Create a new place or skydiving location and save to the sb
    Place.create(newPlace, (err, newlyCreatedPlace) => {
        if(err){
@@ -59,17 +60,14 @@ app.get("/places/:id", function(req,res)  {
         if(err){
             console.log(err);
         }else{
-            console.log("foundPlace");
+            console.log(foundPlace)
             //render show tempalte with that place
              res.render("show", {place: foundPlace});
         }
-
     });
-    
-
-});
+})
 
 //listen at port 3003 and console log the message
 app.listen(app.get('port'), () => {
    console.log('The Share Skydiving experiance server is running at port 3003 .......')
-})
+});

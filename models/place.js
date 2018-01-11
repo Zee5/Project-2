@@ -12,5 +12,4 @@ const placeSchema = new mongoose.Schema({
     ]
 });
 // compile the schema in to a model
-  const Place = mongoose.model("Place", placeSchema);
 module.exports = mongoose.model("Place", placeSchema);
