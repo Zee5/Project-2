@@ -1,0 +1,13 @@
+body{
+    background: rgb(185, 184, 184);
+    margin: 250px 500px;
+}
+body {
+    background-color: #000;
+  }
+  #landing-header {
+    z-index: 1;
+    position: relative;
+    text-align: center;
+    padding-top: 40vh;
+  }
