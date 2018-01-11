@@ -13,6 +13,7 @@ mongoose.connect("mongodb://localhost/skydive_db");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('port', process.env.PORT || 3003);
 app.set("view engine", "ejs");
+app.use(express.static(__dirname + "/public"));
 seedDB();
 
 // Landing page
@@ -100,7 +101,7 @@ app.post("/places/:id/comments", function(req, res){
          });
         }
     });
-    
+
 });
 
 
