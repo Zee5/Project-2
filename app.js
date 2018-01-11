@@ -3,8 +3,11 @@ const express       = require("express");
 const app           = express();
 const bodyParser    = require("body-parser");
 const mongoose      = require("mongoose"); 
+const passport      = require("passport");
+const LocalStrategy = require("passport-local");
 const Place         = require("./models/place");
 const Comment       = require("./models/comment");
+const User           = require("./models/user");
 const seedDB        = require("./seeds");
 
 //connection setup
@@ -15,6 +18,23 @@ app.set('port', process.env.PORT || 3003);
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 seedDB();
+//passport configuration
+app.use(require("express-session")({
+    secret: "Top 10 Health Benefits of Skydiving",
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.use(function(req, res, next){
+   res.locals.currentUser = req.user;
+   next();
+});
+
 
 // Landing page
 app.get("/", (req, res) => {
@@ -72,7 +92,7 @@ app.get("/places/:id", function(req,res)  {
 //============================================
 // Comment Routes
 //==========================================
-app.get("/places/:id/comments/new", function(req, res){
+app.get("/places/:id/comments/new",isLoggedIn, function(req, res){
     // find places by id
     Place.findById(req.params.id, function(err, place){
         if(err){
@@ -83,7 +103,7 @@ app.get("/places/:id/comments/new", function(req, res){
     })
 });
 
-app.post("/places/:id/comments", function(req, res){
+app.post("/places/:id/comments",isLoggedIn, function(req, res){
     //lookup place using id
     Place.findById(req.params.id, function(err, place){
         if(err){
@@ -103,6 +123,53 @@ app.post("/places/:id/comments", function(req, res){
     });
 
 });
+
+// AUTH ROUTES
+//  ===========
+
+// show register form
+app.get("/register", function(req, res){
+    res.render("register"); 
+ });
+ //handle sign up logic
+ app.post("/register", function(req, res){
+     var newUser = new User({username: req.body.username});
+     User.register(newUser, req.body.password, function(err, user){
+         if(err){
+             console.log(err);
+             return res.render("register");
+         }
+         passport.authenticate("local")(req, res, function(){
+            res.redirect("/places"); 
+         });
+     });
+ });
+ 
+ // show login form
+ app.get("/login", function(req, res){
+    res.render("login"); 
+ });
+ // handling login logic
+ app.post("/login", passport.authenticate("local", 
+     {
+         successRedirect: "/places",
+         failureRedirect: "/login"
+     }), function(req, res){
+ });
+ 
+ // logout logic route
+ app.get("/logout", function(req, res){
+    req.logout();
+    res.redirect("/places");
+ });
+ 
+ //middleware
+ function isLoggedIn(req, res, next){
+     if(req.isAuthenticated()){
+         return next();
+     }
+     res.redirect("/login");
+ }
 
 
 //listen at port 3003 and console log the message
