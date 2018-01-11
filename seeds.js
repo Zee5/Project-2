@@ -53,20 +53,13 @@ data.forEach((seed) => {
                         place.save();
                         console.log("created new comments");
                     }
-                        
-
-                    })
+                })
             }
         })
     })
 
 }); 
-
-
-
 // Add feww comments
-
-
 }
 
 module.exports = seedDB;

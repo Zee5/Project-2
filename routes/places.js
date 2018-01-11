@@ -12,20 +12,24 @@ router.get("/", (req, res) => {
             res.render("places/index", {places:allPlaces})
         }
     })
-    
 });
 // Create route- to add new skydiving places to a db
-router.post("/", (req, res ) => {
+router.post("/",isLoggedIn, (req, res ) => {
     //get data from form and add to places array
     var name  =  req.body.name;
     var image = req.body.image;
     var desc = req.body.description;
-    var newPlace = {name: name, image: image, description: desc};
+    var author = {
+        id: req.user._id,
+        username: req.user.username
+    }
+    var newPlace = {name: name, image: image, description: desc, author:author};
     // Create a new place or skydiving location and save to the sb
-   Place.create(newPlace, (err, newlyCreatedPlace) => {
+   Place.create(newPlace, (err, newlyCreated) => {
        if(err){
         console.log(err);
        }else{
+           console.log("newlyCreated");
         res.redirect("/places");
        }
 
@@ -40,7 +44,7 @@ router.get("/places/new", (req, res) => {
 */
 
 //NEW - show form to create new place 
-router.get("/new", function(req, res){
+router.get("/new", isLoggedIn, function(req, res){
     res.render("places/new"); 
  });
 
@@ -57,5 +61,12 @@ router.get("/:id", function(req,res)  {
         }
     });
 })
+ //middleware set up 
+ function isLoggedIn(req, res, next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect("/login");
+}
 
 module.exports = router;
