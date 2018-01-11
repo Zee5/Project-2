@@ -35,19 +35,11 @@ router.post("/",isLoggedIn, (req, res ) => {
 
    });
 });
-/*
-// Show the form that will send the data to /places post route
-router.get("/places/new", (req, res) => {
-    res.render("places/new");
-
-});
-*/
 
 //NEW - show form to create new place 
 router.get("/new", isLoggedIn, function(req, res){
     res.render("places/new"); 
  });
-
 //Show - show more info about specific skydive place
 router.get("/:id", function(req,res)  {
     //find the places with the mongoose provided id
@@ -61,6 +53,35 @@ router.get("/:id", function(req,res)  {
         }
     });
 })
+
+
+// Edit place route
+router.get("/:id/edit", function(req,res)  {
+    Place.findById(req.params.id,  function(err, foundPlace){
+        if(err){
+            res.redirect("/places")
+        }else{
+            res.render("places/edit", {place: foundPlace});
+        }
+
+    });
+
+})
+
+// update place route
+router.put("/:id", function(req,res)  {
+
+    Place.findByIdAndUpdate(req.params.id, req.body.place, function(err, updatedPlace){
+        if(err){
+            res.redirect("/places")
+        }else{
+            res.redirect("/places/" + req.params.id);
+        }
+
+    });
+})
+
+
  //middleware set up 
  function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
