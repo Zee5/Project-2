@@ -15,12 +15,12 @@ const data = [
     {
         name: "Outerspace",
         image: "http://www.skydivehawaii.com/Portals/0/WebSitesCreative_Banner/619/c13523d8-7137-4e0f-bec1-605bde33d03a.jpg",
-        description: "1. Lorem ipsum 3 dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        description: "Lorem ipsum 3 dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     }, 
     {
         name: "Mount Everest, Nepal",
         image: "http://flyingthenest.tv/wp-content/uploads/2015/04/skydive.jpeg",
-        description: "1. Lorem ipsum 4dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        description: " Lorem ipsum 4dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     }
 
 ]

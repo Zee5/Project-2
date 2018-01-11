@@ -4,6 +4,7 @@ const app           = express();
 const bodyParser    = require("body-parser");
 const mongoose      = require("mongoose"); 
 const Place         = require("./models/place");
+const Comment       = require("./models/comment");
 const seedDB        = require("./seeds");
 
 //connection setup
@@ -25,7 +26,7 @@ app.get("/places", (req, res) => {
         if(err){
             console.log(err);
         }else{
-            res.render("index", {places:allPlaces})
+            res.render("places/index", {places:allPlaces})
         }
     })
     
@@ -49,7 +50,7 @@ app.post("/places", (req, res ) => {
 });
 // Show the form that will send the data to /places post route
 app.get("/places/new", (req, res) => {
-    res.render("new.ejs");
+    res.render("places/new");
 
 });
 
@@ -62,12 +63,48 @@ app.get("/places/:id", function(req,res)  {
         }else{
             console.log(foundPlace)
             //render show tempalte with that place
-             res.render("show", {place: foundPlace});
+             res.render("places/show", {place: foundPlace});
         }
     });
 })
 
-//listen at port 3003 and console log the message
-app.listen(app.get('port'), () => {
-   console.log('The Share Skydiving experiance server is running at port 3003 .......')
+//============================================
+// Comment Routes
+//==========================================
+app.get("/places/:id/comments/new", function(req, res){
+    // find places by id
+    Place.findById(req.params.id, function(err, place){
+        if(err){
+            console.log(err);
+        } else {
+             res.render("comments/new", {place: place});
+        }
+    })
 });
+
+app.post("/places/:id/comments", function(req, res){
+    //lookup place using id
+    Place.findById(req.params.id, function(err, place){
+        if(err){
+            console.log(err);
+            res.redirect("/places");
+        } else {
+         Comment.create(req.body.comment, function(err, comment){
+            if(err){
+                console.log(err);
+            } else {
+                place.comments.push(comment);
+                place.save();
+                res.redirect('/places/' + place._id);
+            }
+         });
+        }
+    });
+    
+});
+
+
+//listen at port 3003 and console log the message
+app.listen(app.get("port"), () => {
+   console.log("The Share Skydiving experience server is running at port 3003 .......")
+})
