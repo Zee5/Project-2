@@ -55,18 +55,7 @@ router.get("/:id", function(req,res)  {
 })
 
 
-// Edit place route
-router.get("/:id/edit", function(req,res)  {
-    Place.findById(req.params.id,  function(err, foundPlace){
-        if(err){
-            res.redirect("/places")
-        }else{
-            res.render("places/edit", {place: foundPlace});
-        }
 
-    });
-
-})
 
 // update place route
 router.put("/:id", function(req,res)  {
@@ -80,6 +69,32 @@ router.put("/:id", function(req,res)  {
 
     });
 })
+// Edit place route
+router.get("/:id/edit", function(req,res)  {
+    Place.findById(req.params.id,  function(err, foundPlace){
+        if(err){
+            res.redirect("/places")
+        }else{
+            res.render("places/edit", {place: foundPlace});
+        }
+
+    });
+
+})
+
+// destroy place route
+router.delete("/:id", function(req, res){
+    Place.findByIdAndRemove(req.params.id, function(err){
+        if(err){
+            res.redirect("/places")
+        }else {
+            res.redirect("/places")
+        }
+
+    })
+
+});
+
 
 
  //middleware set up 
