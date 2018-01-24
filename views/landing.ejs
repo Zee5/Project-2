@@ -7,12 +7,12 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
     </head>
     <body>
-    
-    
+        <!-- Landing page was blank, black background, with no console errors. Was there a video background in your presentation? -->
+
     </div>
     
     <div id="landing-header">
- 		<h1>Welcome to Skydive!</h1>
+		<h1>Welcome to Skydive!</h1>
 		<a href="/places" class="btn btn-lg btn-success">View All Skydive places</a>
     </div>
     
@@ -20,4 +20,15 @@
       
     </ul>
 
-<% include partials/footer %>
+    <!-- I realize that there is no precise equivalent of a layout in .ejs -->
+    <!-- and that this was your work-around. This resulted in DRYer, more readable -->
+    <!-- code. This is a clever workaround, but would not scale well for a large app. -->
+    <% include partials/footer %>
+
+    <!-- Avoid putting closing tags for the layout in partials. Partials should be self-contained -->
+    <!-- documents shouldn't be broken up across partials: this can get very messy in large CMS situations  -->
+    <!-- partials are almost like components but without behavior and state -->
+    <!-- a form, navbar, carousel, or menu would be a typical example of a partial -->
+
+    <!-- There is a package here that add layout features, but with sparse documentation -->
+    <!-- https://www.npmjs.com/package/express-ejs-layouts -->
