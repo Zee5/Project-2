@@ -14,7 +14,7 @@ const placeSchema = new mongoose.Schema({
     comments: [
       {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Comment"
+      ref: "Comment" //I would probably embed comments as a sub-document since they won't make sense out of context
       }
     ]
 });

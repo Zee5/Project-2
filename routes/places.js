@@ -43,11 +43,13 @@ router.get("/new", isLoggedIn, function(req, res){
 //Show - show more info about specific skydive place
 router.get("/:id", function(req,res)  {
     //find the places with the mongoose provided id
+
     Place.findById(req.params.id).populate("comments").exec(function(err, foundPlace){
         if(err){
             console.log(err);
         }else{
-            console.log(foundPlace)
+            console.log(foundPlace) //this is coming back null since findById isn't properly retrieving the right item from the data
+
             //render show tempalte with that place
              res.render("places/show", {place: foundPlace});
         }
